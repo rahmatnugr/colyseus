@@ -1,4 +1,5 @@
 import net from 'net';
+import ip from 'internal-ip';
 import { Presence } from '../presence/Presence';
 
 const NODES_SET = 'colyseus:nodes';
@@ -10,7 +11,8 @@ export interface Node {
 }
 
 function getNodeAddress(node: Node) {
-    const address = (node.addressInfo.address === '::') ? `[${node.addressInfo.address}]` : node.addressInfo.address;
+    // const address = (node.addressInfo.address === '::') ? `[${node.addressInfo.address}]` : node.addressInfo.address;
+    const address = ip.v4.sync();
     return `${node.processId}/${address}:${node.addressInfo.port}`;
 }
 
